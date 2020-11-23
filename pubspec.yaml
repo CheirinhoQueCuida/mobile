@@ -1,5 +1,5 @@
 name: mobile
-description: A new Flutter project.
+description: Aplicativo da Cheirinho que Cuida.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -28,6 +28,18 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
+  nikutils: ^0.0.9
+  google_nav_bar: ^3.1.0
+  shimmer: ^1.1.2
+  cached_network_image: ^2.3.3
+  webview_flutter: ^1.0.7
+  flutter_launcher_icons: ^0.8.1
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/icon.png"
+
 
 dev_dependencies:
   flutter_test:
