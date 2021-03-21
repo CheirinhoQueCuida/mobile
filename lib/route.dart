@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/pages/items/itemspage.dart';
+import 'package:mobile/pages/items/oleospage.dart';
 import 'package:mobile/pages/pages.dart';
 
 class RouteGenerator {
@@ -11,7 +11,7 @@ class RouteGenerator {
 
       case '/Items':
         return MaterialPageRoute(
-            builder: (_) => ItemsPage(
+            builder: (_) => OleosPage(
                   categoria: args,
                 ));
 

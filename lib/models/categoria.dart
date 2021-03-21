@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:mobile/models/imagem.dart';
+
 Categoria categoriaFromJson(String str) => Categoria.fromJson(json.decode(str));
 
 String categoriaToJson(Categoria data) => json.encode(data.toJson());
@@ -13,31 +15,27 @@ String categoriaListToJson(List<Categoria> data) =>
 class Categoria {
   Categoria({
     this.id,
-    this.categoriaPaiId,
     this.nome,
-    this.imageUrl,
     this.descricao,
+    this.imagem,
   });
 
   int id;
-  dynamic categoriaPaiId;
   String nome;
-  String imageUrl;
   String descricao;
+  Imagem imagem;
 
   factory Categoria.fromJson(Map<String, dynamic> json) => Categoria(
         id: json["id"],
-        categoriaPaiId: json["categoriaPaiId"],
         nome: json["nome"],
-        imageUrl: json["imageUrl"],
         descricao: json["descricao"],
+        imagem: Imagem.fromJson(json["imagem"]),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "categoriaPaiId": categoriaPaiId,
         "nome": nome,
-        "imageUrl": imageUrl,
         "descricao": descricao,
+        "imagem": imagem.toJson(),
       };
 }

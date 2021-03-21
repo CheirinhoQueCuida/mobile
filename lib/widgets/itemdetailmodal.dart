@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/models/Item.dart';
-import 'package:mobile/pages/items/itemdetailpage.dart';
+import 'package:mobile/models/oleo.dart';
+import 'package:mobile/pages/items/oleodetailpage.dart';
 
 class ItemDetailModal extends ModalRoute<void> {
-  ItemDetailModal(this.item);
+  ItemDetailModal(this.oleo);
 
-  Item item;
+  Oleo oleo;
 
   @override
   Duration get transitionDuration => Duration(milliseconds: 400);
@@ -37,8 +37,8 @@ class ItemDetailModal extends ModalRoute<void> {
       type: MaterialType.transparency,
       child: SafeArea(
         minimum: EdgeInsets.only(top: 60),
-        child: ItemDetailPage(
-          item: item,
+        child: OleoDetailPage(
+          oleo: oleo,
         ),
       ),
     );

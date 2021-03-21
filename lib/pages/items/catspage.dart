@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/helpers/colors.dart';
 import 'package:mobile/models/categoria.dart';
 import 'package:mobile/services/categoriaservice.dart';
-import 'package:nikutils/utils/http/nk_http.dart';
+import 'package:nikutils/nikutils.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:nikutils/extensions/nke_context.dart';
 import 'package:nikutils/extensions/nke_state.dart';
@@ -19,7 +19,7 @@ class _CatsPageState extends State<CatsPage> {
   bool isBusy;
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
-  final CategoriaService categoriaService = Ioc().use(CategoriaService);
+  final CategoriaService categoriaService = Get.find();
 
   List<Categoria> categorias = [];
 
@@ -32,7 +32,7 @@ class _CatsPageState extends State<CatsPage> {
   Future _refresh() async {
     nkSetState(() => isBusy = true);
 
-    var res = await categoriaService.get();
+    var res = await categoriaService.get(id: 2);
     if (res.success) {
       nkSetState(() {
         categorias = res.data;
@@ -84,46 +84,51 @@ class _CatsPageState extends State<CatsPage> {
               context.pushNamed("/Items", args: categoria);
             },
             child: Container(
-              height: 100,
+              height: context.height * 0.15,
               alignment: Alignment.centerLeft,
-              padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
+              padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
               child: Row(
                 children: [
                   SizedBox(
-                    height: 90,
-                    width: 90,
+                    height: context.height * 0.13,
+                    width: context.height * 0.13,
                     child: Ink.image(
                       fit: BoxFit.cover,
-                      image: CachedNetworkImageProvider(categoria.imageUrl),
+                      image: CachedNetworkImageProvider(categoria.imagem != null
+                          ? categoria.imagem.url
+                          : "https://webcheirinho.com.br/imgs/bafd47cd-cf0f-4677-b778-f33a5d626113.png"),
                     ),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5.0),
-                        child: Text(
-                          categoria.nome,
-                          style: TextStyle(
-                              color: AppColors.background,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w400),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5.0),
+                          child: Text(
+                            categoria.nome,
+                            style: TextStyle(
+                                color: AppColors.background,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w400),
+                          ),
                         ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top: 5),
-                        width: constraints.maxWidth * 0.65,
-                        child: Text(
-                          categoria.descricao,
-                          maxLines: 2,
-                          style: TextStyle(
-                              color: AppColors.background,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w300),
+                        Container(
+                          margin: EdgeInsets.only(top: 5),
+                          width: constraints.maxWidth * 0.65,
+                          child: Text(
+                            categoria.descricao,
+                            maxLines: 2,
+                            style: TextStyle(
+                                color: AppColors.background,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w300),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),

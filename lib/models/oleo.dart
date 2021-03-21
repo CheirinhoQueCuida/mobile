@@ -1,19 +1,19 @@
 import 'dart:convert';
 
-import 'package:mobile/models/foto.dart';
+import 'package:mobile/models/imagem.dart';
 
-Item itemFromJson(String str) => Item.fromJson(json.decode(str));
+Oleo oleoFromJson(String str) => Oleo.fromJson(json.decode(str));
 
-String itemToJson(Item data) => json.encode(data.toJson());
+String oleoToJson(Oleo data) => json.encode(data.toJson());
 
-List<Item> itemListFromJson(String str) =>
-    List<Item>.from(json.decode(str).map((x) => Item.fromJson(x)));
+List<Oleo> oleoListFromJson(String str) =>
+    List<Oleo>.from(json.decode(str).map((x) => Oleo.fromJson(x)));
 
-String itemListToJson(List<Item> data) =>
+String oleoListToJson(List<Oleo> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Item {
-  Item({
+class Oleo {
+  Oleo({
     this.id,
     this.categoriaId,
     this.nome,
@@ -29,16 +29,16 @@ class Item {
   String imageUrl;
   String descricao;
   dynamic categoria;
-  List<Foto> fotos;
+  List<Imagem> fotos;
 
-  factory Item.fromJson(Map<String, dynamic> json) => Item(
+  factory Oleo.fromJson(Map<String, dynamic> json) => Oleo(
         id: json["id"],
         categoriaId: json["categoriaId"],
         nome: json["nome"],
         imageUrl: json["imageUrl"],
         descricao: json["descricao"],
         categoria: json["categoria"],
-        fotos: List<Foto>.from(json["fotos"].map((x) => Foto.fromJson(x))),
+        fotos: List<Imagem>.from(json["fotos"].map((x) => Imagem.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {

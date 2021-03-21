@@ -67,7 +67,7 @@ class _PagesState extends State<Pages> {
                 tabs: [
                   GButton(
                     icon: Icons.home,
-                    text: 'Home',
+                    text: 'Cursos',
                     iconColor: AppColors.primaryColor,
                     textStyle: TextStyle(
                         fontWeight: FontWeight.w300,

@@ -1,8 +1,9 @@
 import 'package:mobile/models/categoria.dart';
+import 'package:nikutils/nikutils.dart';
 import 'package:nikutils/utils/http/nk_http.dart';
 
 class CategoriaService {
-  final NkHttpService httpService = Ioc().use<NkHttpService>('NkHttpService');
+  final NkHttpService httpService = Get.find();
   Future<NkResponse<List<Categoria>>> get({int id}) async {
     var requestData =
         RequestData<List<Categoria>>(fromJson: categoriaListFromJson);

@@ -1,11 +1,12 @@
-import 'package:mobile/models/Item.dart';
+import 'package:mobile/models/oleo.dart';
+import 'package:nikutils/nikutils.dart';
 import 'package:nikutils/utils/http/nk_http.dart';
 
-class ItemService {
-  final NkHttpService httpService = Ioc().use<NkHttpService>('NkHttpService');
-  Future<NkResponse<List<Item>>> get({int id, int catId}) async {
-    var requestData = RequestData<List<Item>>(fromJson: itemListFromJson);
-    requestData.route = "item";
+class OleoService {
+  final NkHttpService httpService = Get.find();
+  Future<NkResponse<List<Oleo>>> get({int id, int catId}) async {
+    var requestData = RequestData<List<Oleo>>(fromJson: oleoListFromJson);
+    requestData.route = "oleo";
     requestData.queryParams = {};
     if (id != null) {
       requestData.queryParams = {"id": id.toString()};

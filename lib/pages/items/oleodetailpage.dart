@@ -1,20 +1,20 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/helpers/colors.dart';
-import 'package:mobile/models/Item.dart';
+import 'package:mobile/models/oleo.dart';
 import 'package:nikutils/extensions/nke_context.dart';
 import 'package:nikutils/widgets/nk_grid.dart';
 
-class ItemDetailPage extends StatefulWidget {
-  ItemDetailPage({Key key, @required this.item}) : super(key: key);
+class OleoDetailPage extends StatefulWidget {
+  OleoDetailPage({Key key, @required this.oleo}) : super(key: key);
 
-  final Item item;
+  final Oleo oleo;
 
   @override
-  _ItemDetailPageState createState() => _ItemDetailPageState();
+  _OleoDetailPageState createState() => _OleoDetailPageState();
 }
 
-class _ItemDetailPageState extends State<ItemDetailPage> {
+class _OleoDetailPageState extends State<OleoDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,7 +38,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                 Container(
                   padding: EdgeInsets.only(top: 20),
                   child: Text(
-                    widget.item.nome,
+                    widget.oleo.nome,
                     style: TextStyle(
                       color: AppColors.primaryColor,
                       fontSize: 30,
@@ -48,12 +48,12 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                 Container(
                     padding: EdgeInsets.only(top: 15),
                     height: 170,
-                    child: CachedNetworkImage(imageUrl: widget.item.imageUrl)),
+                    child: CachedNetworkImage(imageUrl: widget.oleo.imageUrl)),
                 Container(
                   padding: EdgeInsets.only(top: 30, left: 15),
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    widget.item.descricao,
+                    widget.oleo.descricao,
                     style: TextStyle(
                       color: AppColors.primaryColor,
                       fontSize: 18,
@@ -68,14 +68,14 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                       return NkGrid(
                         columns: 3,
                         children: [
-                          for (var i = 0; i < widget.item.fotos.length; i++)
+                          for (var i = 0; i < widget.oleo.fotos.length; i++)
                             Container(
                                 margin: EdgeInsets.fromLTRB(10, 0, 10, 30),
                                 height: constraints.maxWidth * .27,
                                 width: constraints.maxWidth * .27,
                                 child: CachedNetworkImage(
                                     fit: BoxFit.cover,
-                                    imageUrl: widget.item.fotos[i].url))
+                                    imageUrl: widget.oleo.fotos[i].url))
                         ],
                       );
                     },
