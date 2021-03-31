@@ -9,7 +9,7 @@ class CategoriaService {
         RequestData<List<Categoria>>(fromJson: categoriaListFromJson);
     requestData.route = "categoria";
     if (id != null) {
-      requestData.queryParams = {"id": id.toString()};
+      requestData.queryParams = {"catpaiid": id.toString()};
     }
     requestData.type = RequestType.get;
     var res = await httpService.requestNkBase(requestData);

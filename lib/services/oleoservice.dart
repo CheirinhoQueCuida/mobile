@@ -6,7 +6,7 @@ class OleoService {
   final NkHttpService httpService = Get.find();
   Future<NkResponse<List<Oleo>>> get({int id, int catId}) async {
     var requestData = RequestData<List<Oleo>>(fromJson: oleoListFromJson);
-    requestData.route = "oleo";
+    requestData.route = "item";
     requestData.queryParams = {};
     if (id != null) {
       requestData.queryParams = {"id": id.toString()};

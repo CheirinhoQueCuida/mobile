@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/helpers/colors.dart';
+import 'package:mobile/pages/homepage.dart';
 import 'package:mobile/route.dart';
 import 'package:mobile/services/categoriaservice.dart';
 import 'package:mobile/services/imagemservice.dart';
@@ -21,8 +22,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Cheirinho que Cuida',
       theme: AppColors.mainTheme,
-      initialRoute: '/Pages',
       onGenerateRoute: RouteGenerator.generateRoute,
+      home: HomePage(),
     );
   }
 }

@@ -1,26 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppColors {
   static const Color primaryColor = Color(0xFF440D3B);
+  static const Color primaryColorLight = Color(0xFFFFD6F8);
   static const Color secondaryColor = Color(0xFF929119);
   static const Color accentColor = Color(0xFFE7686A);
   static const Color background = Color(0xFFF0F0F0);
   static const Color backgroundLightColor = Color(0xFFEBE4D2);
 
   static ThemeData mainTheme = ThemeData(
-      primarySwatch:
-          AppColors.customMaterialColor(AppColors.primaryColor.value),
-      visualDensity: VisualDensity.adaptivePlatformDensity,
-      scaffoldBackgroundColor: AppColors.background,
-      appBarTheme: AppBarTheme(
-          color: AppColors.background,
-          elevation: 0,
-          iconTheme: IconThemeData(color: primaryColor),
-          textTheme: TextTheme(
-              headline6: TextStyle(
-                  color: primaryColor,
-                  fontSize: 24,
-                  fontWeight: FontWeight.w300))));
+    primarySwatch: AppColors.customMaterialColor(AppColors.primaryColor.value),
+    visualDensity: VisualDensity.adaptivePlatformDensity,
+    scaffoldBackgroundColor: AppColors.background,
+    appBarTheme: AppBarTheme(
+        color: AppColors.background,
+        elevation: 0,
+        iconTheme: IconThemeData(color: primaryColor),
+        textTheme: TextTheme(
+            headline6: TextStyle(
+                color: primaryColor,
+                fontSize: 24,
+                fontWeight: FontWeight.w300))),
+    textTheme: TextTheme(
+      bodyText1: GoogleFonts.montserrat(),
+      bodyText2: GoogleFonts.montserrat(),
+      button: GoogleFonts.montserrat(),
+      caption: GoogleFonts.montserrat(),
+      headline1: GoogleFonts.montserrat(),
+      headline2: GoogleFonts.montserrat(),
+      headline3: GoogleFonts.montserrat(),
+      headline4: GoogleFonts.montserrat(),
+      headline5: GoogleFonts.montserrat(),
+      headline6: GoogleFonts.montserrat(),
+      overline: GoogleFonts.montserrat(),
+      subtitle1: GoogleFonts.montserrat(),
+      subtitle2: GoogleFonts.montserrat(),
+    ),
+  );
 
   static MaterialColor customMaterialColor(int hex) {
     Color color = Color(hex);

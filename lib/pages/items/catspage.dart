@@ -35,7 +35,7 @@ class _CatsPageState extends State<CatsPage> {
     var res = await categoriaService.get(id: 2);
     if (res.success) {
       nkSetState(() {
-        categorias = res.data;
+        categorias = res.data.obs;
       });
     }
     nkSetState(() => isBusy = false);
@@ -45,7 +45,6 @@ class _CatsPageState extends State<CatsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Container(),
         title: Text("Nossas Categorias"),
         centerTitle: true,
       ),
@@ -96,7 +95,7 @@ class _CatsPageState extends State<CatsPage> {
                       fit: BoxFit.cover,
                       image: CachedNetworkImageProvider(categoria.imagem != null
                           ? categoria.imagem.url
-                          : "https://webcheirinho.com.br/imgs/bafd47cd-cf0f-4677-b778-f33a5d626113.png"),
+                          : "https://webcheirinho.com.br/imgs/c3413174-acce-4d4f-b74d-714af47c2e3c.png"),
                     ),
                   ),
                   Padding(

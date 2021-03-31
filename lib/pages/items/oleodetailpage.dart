@@ -45,10 +45,12 @@ class _OleoDetailPageState extends State<OleoDetailPage> {
                     ),
                   ),
                 ),
-                Container(
-                    padding: EdgeInsets.only(top: 15),
-                    height: 170,
-                    child: CachedNetworkImage(imageUrl: widget.oleo.imageUrl)),
+                widget.oleo.imagem != null ??
+                    Container(
+                        padding: EdgeInsets.only(top: 15),
+                        height: 170,
+                        child: CachedNetworkImage(
+                            imageUrl: widget.oleo.imagem.url)),
                 Container(
                   padding: EdgeInsets.only(top: 30, left: 15),
                   alignment: Alignment.centerLeft,
@@ -60,27 +62,27 @@ class _OleoDetailPageState extends State<OleoDetailPage> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: LayoutBuilder(
-                    builder:
-                        (BuildContext context, BoxConstraints constraints) {
-                      return NkGrid(
-                        columns: 3,
-                        children: [
-                          for (var i = 0; i < widget.oleo.fotos.length; i++)
-                            Container(
-                                margin: EdgeInsets.fromLTRB(10, 0, 10, 30),
-                                height: constraints.maxWidth * .27,
-                                width: constraints.maxWidth * .27,
-                                child: CachedNetworkImage(
-                                    fit: BoxFit.cover,
-                                    imageUrl: widget.oleo.fotos[i].url))
-                        ],
-                      );
-                    },
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(top: 20),
+                //   child: LayoutBuilder(
+                //     builder:
+                //         (BuildContext context, BoxConstraints constraints) {
+                //       return NkGrid(
+                //         columns: 3,
+                //         children: [
+                //           for (var i = 0; i < widget.oleo.fotos.length; i++)
+                //             Container(
+                //                 margin: EdgeInsets.fromLTRB(10, 0, 10, 30),
+                //                 height: constraints.maxWidth * .27,
+                //                 width: constraints.maxWidth * .27,
+                //                 child: CachedNetworkImage(
+                //                     fit: BoxFit.cover,
+                //                     imageUrl: widget.oleo.fotos[i].url))
+                //         ],
+                //       );
+                //     },
+                //   ),
+                // ),
               ],
             ),
           ),

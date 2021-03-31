@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:mobile/models/imagem.dart';
+import 'imagem.dart';
 
 Oleo oleoFromJson(String str) => Oleo.fromJson(json.decode(str));
 
@@ -14,40 +14,44 @@ String oleoListToJson(List<Oleo> data) =>
 
 class Oleo {
   Oleo({
-    this.id,
-    this.categoriaId,
-    this.nome,
-    this.imageUrl,
-    this.descricao,
-    this.categoria,
-    this.fotos,
-  });
+        this.id,
+        this.categoriaId,
+        this.nome,
+        this.descricao,
+        this.cor,
+        this.aroma,
+        this.imagemId,
+        this.imagem,
+    });
 
-  int id;
-  int categoriaId;
-  String nome;
-  String imageUrl;
-  String descricao;
-  dynamic categoria;
-  List<Imagem> fotos;
+    int id;
+    int categoriaId;
+    String nome;
+    String descricao;
+    String cor;
+    String aroma;
+    String imagemId;
+    Imagem imagem;
 
-  factory Oleo.fromJson(Map<String, dynamic> json) => Oleo(
+    factory Oleo.fromJson(Map<String, dynamic> json) => Oleo(
         id: json["id"],
         categoriaId: json["categoriaId"],
         nome: json["nome"],
-        imageUrl: json["imageUrl"],
         descricao: json["descricao"],
-        categoria: json["categoria"],
-        fotos: List<Imagem>.from(json["fotos"].map((x) => Imagem.fromJson(x))),
-      );
+        cor: json["cor"],
+        aroma: json["aroma"],
+        imagemId: json["imagemId"],
+        imagem: Imagem.fromJson(json["imagem"]),
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "id": id,
         "categoriaId": categoriaId,
         "nome": nome,
-        "imageUrl": imageUrl,
         "descricao": descricao,
-        "categoria": categoria,
-        "fotos": List<dynamic>.from(fotos.map((x) => x.toJson())),
-      };
+        "cor": cor,
+        "aroma": aroma,
+        "imagemId": imagemId,
+        "imagem": imagem.toJson(),
+    };
 }

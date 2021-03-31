@@ -88,65 +88,7 @@ class _OleosPageState extends State<OleosPage> {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
             ),
           ),
-          oleo.fotos != null
-              ? LayoutBuilder(builder: (context, constraints) {
-                  return Container(
-                      padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
-                      alignment: Alignment.center,
-                      width: constraints.maxWidth,
-                      height: constraints.maxWidth / 3,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          oleo.fotos.length >= 1
-                              ? Container(
-                                  padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                  height: constraints.maxWidth * 0.31,
-                                  width: constraints.maxWidth * 0.31,
-                                  child: CachedNetworkImage(
-                                    imageUrl: oleo.fotos[0].url,
-                                    fit: BoxFit.cover,
-                                    placeholder: (context, url) =>
-                                        NkHelper.shimmerWidget(
-                                      h: constraints.maxWidth * 0.31,
-                                      w: constraints.maxWidth * 0.31,
-                                    ),
-                                  ))
-                              : Container(),
-                          oleo.fotos.length >= 2
-                              ? Container(
-                                  padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                  height: constraints.maxWidth * 0.31,
-                                  width: constraints.maxWidth * 0.31,
-                                  child: CachedNetworkImage(
-                                    imageUrl: oleo.fotos[1].url,
-                                    fit: BoxFit.cover,
-                                    placeholder: (context, url) =>
-                                        NkHelper.shimmerWidget(
-                                      h: constraints.maxWidth * 0.31,
-                                      w: constraints.maxWidth * 0.31,
-                                    ),
-                                  ))
-                              : Container(),
-                          oleo.fotos.length >= 3
-                              ? Container(
-                                  padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                  height: constraints.maxWidth * 0.31,
-                                  width: constraints.maxWidth * 0.31,
-                                  child: CachedNetworkImage(
-                                    imageUrl: oleo.fotos[2].url,
-                                    fit: BoxFit.cover,
-                                    placeholder: (context, url) =>
-                                        NkHelper.shimmerWidget(
-                                      h: constraints.maxWidth * 0.31,
-                                      w: constraints.maxWidth * 0.31,
-                                    ),
-                                  ))
-                              : Container(),
-                        ],
-                      ));
-                })
-              : Container(),
+          //
           Container(
             padding: EdgeInsets.fromLTRB(0, 20, 0, 30),
             child: NkButton(
