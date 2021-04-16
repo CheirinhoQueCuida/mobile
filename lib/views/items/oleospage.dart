@@ -1,18 +1,19 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mobile/helpers/colors.dart';
 import 'package:mobile/models/categoria.dart';
 import 'package:mobile/models/oleo.dart';
-import 'package:mobile/services/oleoservice.dart';
+import 'package:mobile/repositories/oleorepository.dart';
 import 'package:nikutils/nikutils.dart';
 import 'package:nikutils/extensions/nke_state.dart';
+import 'package:nikutils/utils/http/nk_response.dart';
 import 'package:nikutils/widgets/nk_button.dart';
-import 'package:mobile/helpers/nkhelper.dart';
 import 'package:mobile/widgets/itemdetailmodal.dart';
 
 class OleosPage extends StatefulWidget {
-  OleosPage({Key key, this.categoria}) : super(key: key);
+  OleosPage(this.categoria, {Key? key}) : super(key: key);
   final Categoria categoria;
 
   @override
@@ -20,12 +21,8 @@ class OleosPage extends StatefulWidget {
 }
 
 class _OleosPageState extends State<OleosPage> {
-  bool isBusy;
-  final OleoService oleoService = Get.find();
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
-
-  List<Oleo> oleos = [];
 
   @override
   void initState() {
@@ -34,39 +31,31 @@ class _OleosPageState extends State<OleosPage> {
   }
 
   Future _loadData() async {
-    nkSetState(() => isBusy = true);
-
-    var res = await oleoService.get(catId: widget.categoria.id);
-    if (res.success) {
-      nkSetState(() {
-        oleos = res.data;
-      });
-    }
-    nkSetState(() => isBusy = false);
+    await Get.find<OleoRepository>().loadListData(widget.categoria.id);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.categoria.nome),
+        title: Text(widget.categoria.nome!),
         centerTitle: true,
       ),
       body: RefreshIndicator(
-        key: _refreshIndicatorKey,
-        onRefresh: _loadData,
-        child: !isBusy
-            ? ListView.builder(
-                itemCount: oleos.length,
-                itemBuilder: (context, i) => _buildItem(oleos[i], i))
-            : ListView.builder(
-                itemCount: oleos.length,
-                itemBuilder: (context, i) => Container()),
-      ),
+          key: _refreshIndicatorKey,
+          onRefresh: _loadData,
+          child: GetBuilder<OleoRepository>(
+            builder: (repo) {
+              return ListView.builder(
+                  itemCount: repo.oleos.length,
+                  itemBuilder: (context, i) =>
+                      _buildItem(repo.oleos[i], i, repo.oleos.length));
+            },
+          )),
     );
   }
 
-  Widget _buildItem(Oleo oleo, int i) {
+  Widget _buildItem(Oleo oleo, int i, int listLength) {
     return Container(
       padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
       child: Column(
@@ -74,7 +63,7 @@ class _OleosPageState extends State<OleosPage> {
           Padding(
             padding: const EdgeInsets.only(bottom: 15),
             child: Text(
-              oleo.nome,
+              oleo.nome!,
               style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.w300,
@@ -82,9 +71,17 @@ class _OleosPageState extends State<OleosPage> {
             ),
           ),
           Container(
+              padding: EdgeInsets.only(bottom: 15),
+              child: Image.network(
+                oleo.imagem != null ? oleo.imagem!.url! : "",
+                height: 120,
+                width: 240,
+                fit: BoxFit.fitHeight,
+              )),
+          Container(
             alignment: Alignment.centerLeft,
             child: Text(
-              oleo.descricao,
+              oleo.descricao!,
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
             ),
           ),
@@ -94,21 +91,20 @@ class _OleosPageState extends State<OleosPage> {
             child: NkButton(
               "Ver Mais",
               width: 110,
-              color: AppColors.accentColor,
               textStyle: TextStyle(
-                  color: AppColors.primaryColor,
+                  color: AppColors.background,
                   fontSize: 18,
-                  fontWeight: FontWeight.w600),
+                  fontWeight: FontWeight.w400),
               onClick: () {
                 Navigator.of(context).push(ItemDetailModal(oleo));
               },
             ),
           ),
-          i != oleos.length - 1
+          i != listLength - 1
               ? Divider(
                   color: AppColors.primaryColor.withOpacity(.5),
-                  height: 40,
-                  thickness: 2,
+                  height: 20,
+                  thickness: 1,
                   indent: 10,
                   endIndent: 10,
                 )

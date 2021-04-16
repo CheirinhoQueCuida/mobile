@@ -6,7 +6,7 @@ import 'package:nikutils/extensions/nke_context.dart';
 import 'package:nikutils/widgets/nk_button.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -81,16 +81,16 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       NkButton(
                         "Óleos Essenciais",
-                        color: AppColors.primaryColor,
-                        width: 110,
+                        width: 120,
                         textStyle: TextStyle(
                             color: AppColors.background, fontSize: 12),
-                        onClick: () {},
+                        onClick: () {
+                          context.pushNamed("/Categorias");
+                        },
                       ),
                       NkButton(
                         "Óleos Vegetais",
-                        color: AppColors.primaryColor,
-                        width: 110,
+                        width: 120,
                         textStyle: TextStyle(
                             color: AppColors.background, fontSize: 12),
                         onClick: () {},
@@ -106,8 +106,10 @@ class _HomePageState extends State<HomePage> {
                   ),
 
                   _buildItem("Diluição", "Adicionar desc...", Mdi.waterPercent,
-                      btnText: "Calcular",
-                      ontap: () => context.pushNamed("/Diluicao"))
+                      btnText: "Calcular", ontap: () async {
+                    await Future.delayed(Duration(milliseconds: 80));
+                    context.pushNamed("/Diluicao");
+                  })
                 ],
               ),
             );
@@ -118,7 +120,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildItem(String title, String desc, IconData icon,
-      {String btnText = "Conheça", Function ontap}) {
+      {String btnText = "Conheça", Function? ontap}) {
     return Column(
       children: [
         Padding(
@@ -146,8 +148,11 @@ class _HomePageState extends State<HomePage> {
         ),
         NkButton(
           btnText,
-          color: AppColors.primaryColor,
-          textStyle: TextStyle(color: AppColors.background),
+          // colors: NkColors(
+          //     color: AppColors.primaryColor,
+          //     splashColor: Colors.white30,
+          //     highlightColor: Colors.white12),
+          // textStyle: TextStyle(color: AppColors.background),
           onClick: ontap != null ? ontap : () {},
         ),
         Divider(

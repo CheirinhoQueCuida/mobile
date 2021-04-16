@@ -14,44 +14,64 @@ String oleoListToJson(List<Oleo> data) =>
 
 class Oleo {
   Oleo({
-        this.id,
-        this.categoriaId,
-        this.nome,
-        this.descricao,
-        this.cor,
-        this.aroma,
-        this.imagemId,
-        this.imagem,
-    });
+    this.id,
+    this.nome,
+    this.nomeCientifico,
+    this.classificacao,
+    this.funcaoTerapeuta,
+    this.funcaoVibracional,
+    this.funcaoEstetica,
+    this.sinergia,
+    this.seguranca,
+    this.advertencia,
+    this.descricao,
+    this.imagemId,
+    this.imagem,
+  });
 
-    int id;
-    int categoriaId;
-    String nome;
-    String descricao;
-    String cor;
-    String aroma;
-    String imagemId;
-    Imagem imagem;
+  int? id;
+  String? nome;
+  String? nomeCientifico;
+  String? classificacao;
+  String? funcaoTerapeuta;
+  String? funcaoVibracional;
+  String? funcaoEstetica;
+  String? sinergia;
+  String? seguranca;
+  String? advertencia;
+  String? descricao;
+  String? imagemId;
+  Imagem? imagem;
 
-    factory Oleo.fromJson(Map<String, dynamic> json) => Oleo(
+  factory Oleo.fromJson(Map<String, dynamic> json) => Oleo(
         id: json["id"],
-        categoriaId: json["categoriaId"],
         nome: json["nome"],
+        nomeCientifico: json["nomeCientifico"],
+        classificacao: json["classificacao"],
+        funcaoTerapeuta: json["funcaoTerapeuta"],
+        funcaoVibracional: json["funcaoVibracional"],
+        funcaoEstetica: json["funcaoEstetica"],
+        sinergia: json["sinergia"],
+        seguranca: json["seguranca"],
+        advertencia: json["advertencia"],
         descricao: json["descricao"],
-        cor: json["cor"],
-        aroma: json["aroma"],
         imagemId: json["imagemId"],
-        imagem: Imagem.fromJson(json["imagem"]),
-    );
+        imagem: json["imagem"] != null ? Imagem.fromJson(json["imagem"]) : null,
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "id": id,
-        "categoriaId": categoriaId,
         "nome": nome,
+        "nomeCientifico": nomeCientifico,
+        "classificacao": classificacao,
+        "funcaoTerapeuta": funcaoTerapeuta,
+        "funcaoVibracional": funcaoVibracional,
+        "funcaoEstetica": funcaoEstetica,
+        "sinergia": sinergia,
+        "seguranca": seguranca,
+        "advertencia": advertencia,
         "descricao": descricao,
-        "cor": cor,
-        "aroma": aroma,
         "imagemId": imagemId,
-        "imagem": imagem.toJson(),
-    };
+        "imagem": imagem != null ? imagem!.toJson() : null,
+      };
 }

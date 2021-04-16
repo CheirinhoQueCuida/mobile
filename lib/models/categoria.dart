@@ -14,28 +14,28 @@ String categoriaListToJson(List<Categoria> data) =>
 
 class Categoria {
   Categoria({
-    this.id,
+    this.id = 0,
     this.nome,
     this.descricao,
     this.imagem,
   });
 
   int id;
-  String nome;
-  String descricao;
-  Imagem imagem;
+  String? nome;
+  String? descricao;
+  Imagem? imagem;
 
   factory Categoria.fromJson(Map<String, dynamic> json) => Categoria(
         id: json["id"],
         nome: json["nome"],
         descricao: json["descricao"],
-        imagem: Imagem.fromJson(json["imagem"]),
+        imagem: json["imagem"] != null ? Imagem.fromJson(json["imagem"]) : null,
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "nome": nome,
         "descricao": descricao,
-        "imagem": imagem.toJson(),
+        "imagem": imagem!.toJson(),
       };
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/pages/dilutionpage.dart';
-import 'package:mobile/pages/homepage.dart';
-import 'package:mobile/pages/items/catspage.dart';
-import 'package:mobile/pages/items/oleospage.dart';
+import 'package:mobile/views/dilutionpage.dart';
+import 'package:mobile/views/homepage.dart';
+import 'package:mobile/views/items/catspage.dart';
+import 'package:mobile/views/items/oleospage.dart';
+
+import 'models/categoria.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -13,7 +15,7 @@ class RouteGenerator {
       case '/Oleos':
         return MaterialPageRoute(
             builder: (_) => OleosPage(
-                  categoria: args,
+                  args as Categoria,
                 ));
       case '/Categorias':
         return MaterialPageRoute(builder: (_) => CatsPage());

@@ -1,27 +1,23 @@
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/helpers/colors.dart';
 import 'package:mobile/models/categoria.dart';
-import 'package:mobile/services/categoriaservice.dart';
+import 'package:mobile/repositories/categoriarepository.dart';
 import 'package:nikutils/nikutils.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:nikutils/extensions/nke_context.dart';
-import 'package:nikutils/extensions/nke_state.dart';
 
 class CatsPage extends StatefulWidget {
-  CatsPage({Key key}) : super(key: key);
+  CatsPage({Key? key}) : super(key: key);
 
   @override
   _CatsPageState createState() => _CatsPageState();
 }
 
 class _CatsPageState extends State<CatsPage> {
-  bool isBusy;
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
-  final CategoriaService categoriaService = Get.find();
-
-  List<Categoria> categorias = [];
 
   @override
   void initState() {
@@ -30,15 +26,7 @@ class _CatsPageState extends State<CatsPage> {
   }
 
   Future _refresh() async {
-    nkSetState(() => isBusy = true);
-
-    var res = await categoriaService.get(id: 2);
-    if (res.success) {
-      nkSetState(() {
-        categorias = res.data.obs;
-      });
-    }
-    nkSetState(() => isBusy = false);
+    await Get.find<CategoriaRepository>().loadData();
   }
 
   @override
@@ -52,15 +40,34 @@ class _CatsPageState extends State<CatsPage> {
           key: _refreshIndicatorKey,
           onRefresh: _refresh,
           child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: !isBusy
-                ? ListView.builder(
-                    itemCount: categorias.length,
-                    itemBuilder: (context, i) => _buildCatItem(categorias[i]))
-                : ListView.builder(
-                    itemCount: 3,
-                    itemBuilder: (context, i) => _buildShimmerItem()),
-          )),
+              padding: const EdgeInsets.all(15.0),
+              child: GetBuilder<CategoriaRepository>(
+                init: CategoriaRepository(),
+                builder: (repo) {
+                  if (!repo.success) {
+                    return Container(
+                      width: context.width,
+                      alignment: Alignment.topCenter,
+                      child: Text(
+                        "Ocorrou um erro com o servidor!",
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    );
+                  }
+                  return repo.categorias.length > 0
+                      ? ListView.builder(
+                          itemCount: repo.categorias.length,
+                          itemBuilder: (context, i) =>
+                              _buildCatItem(repo.categorias[i]))
+                      : Container(
+                          width: context.width,
+                          alignment: Alignment.topCenter,
+                          child: Text(
+                            "Nenhuma categoria encontrada!",
+                          ),
+                        );
+                },
+              ))),
     );
   }
 
@@ -80,7 +87,7 @@ class _CatsPageState extends State<CatsPage> {
               ]),
           child: InkWell(
             onTap: () {
-              context.pushNamed("/Items", args: categoria);
+              context.pushNamed("/Oleos", args: categoria);
             },
             child: Container(
               height: context.height * 0.15,
@@ -94,7 +101,7 @@ class _CatsPageState extends State<CatsPage> {
                     child: Ink.image(
                       fit: BoxFit.cover,
                       image: CachedNetworkImageProvider(categoria.imagem != null
-                          ? categoria.imagem.url
+                          ? categoria.imagem!.url!
                           : "https://webcheirinho.com.br/imgs/c3413174-acce-4d4f-b74d-714af47c2e3c.png"),
                     ),
                   ),
@@ -107,7 +114,7 @@ class _CatsPageState extends State<CatsPage> {
                         Padding(
                           padding: const EdgeInsets.only(top: 5.0),
                           child: Text(
-                            categoria.nome,
+                            categoria.nome!,
                             style: TextStyle(
                                 color: AppColors.background,
                                 fontSize: 20,
@@ -118,7 +125,7 @@ class _CatsPageState extends State<CatsPage> {
                           margin: EdgeInsets.only(top: 5),
                           width: constraints.maxWidth * 0.65,
                           child: Text(
-                            categoria.descricao,
+                            categoria.descricao!,
                             maxLines: 2,
                             style: TextStyle(
                                 color: AppColors.background,
@@ -136,21 +143,5 @@ class _CatsPageState extends State<CatsPage> {
         );
       }),
     );
-  }
-
-  Widget _buildShimmerItem() {
-    return Shimmer.fromColors(
-        baseColor: Colors.grey[200],
-        highlightColor: Colors.grey.withOpacity(0.2),
-        child: Container(
-          height: 100,
-          alignment: Alignment.centerLeft,
-          padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
-          margin: EdgeInsets.fromLTRB(0, 5, 0, 5),
-          decoration: BoxDecoration(
-            color: AppColors.secondaryColor,
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ));
   }
 }

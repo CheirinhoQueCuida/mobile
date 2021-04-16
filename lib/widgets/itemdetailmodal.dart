@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/models/oleo.dart';
-import 'package:mobile/pages/items/oleodetailpage.dart';
+import 'package:mobile/views/items/oleodetailpage.dart';
 
 class ItemDetailModal extends ModalRoute<void> {
   ItemDetailModal(this.oleo);
@@ -22,7 +22,7 @@ class ItemDetailModal extends ModalRoute<void> {
   }
 
   @override
-  String get barrierLabel => null;
+  String? get barrierLabel => null;
 
   @override
   bool get maintainState => true;

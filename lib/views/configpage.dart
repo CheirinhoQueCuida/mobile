@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/helpers/colors.dart';
 
 class ConfigPage extends StatefulWidget {
-  ConfigPage({Key key}) : super(key: key);
+  ConfigPage({Key? key}) : super(key: key);
 
   @override
   _ConfigPageState createState() => _ConfigPageState();
