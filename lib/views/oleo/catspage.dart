@@ -44,6 +44,10 @@ class _CatsPageState extends State<CatsPage> {
               child: GetBuilder<CategoriaRepository>(
                 init: CategoriaRepository(),
                 builder: (repo) {
+                  if (repo.isBusy)
+                    return Container(
+                        alignment: Alignment.topCenter,
+                        child: RefreshProgressIndicator());
                   if (!repo.success) {
                     return Container(
                       width: context.width,
@@ -99,10 +103,10 @@ class _CatsPageState extends State<CatsPage> {
                     height: context.height * 0.13,
                     width: context.height * 0.13,
                     child: Ink.image(
-                      fit: BoxFit.cover,
-                      image: CachedNetworkImageProvider(categoria.imagem != null
-                          ? categoria.imagem!.url!
-                          : "https://webcheirinho.com.br/imgs/c3413174-acce-4d4f-b74d-714af47c2e3c.png"),
+                      fit: BoxFit.fitHeight,
+                      image: CachedNetworkImageProvider(
+                        categoria.imagem != null ? categoria.imagem!.url! : "",
+                      ),
                     ),
                   ),
                   Padding(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mdi/mdi.dart';
 import 'package:mobile/helpers/colors.dart';
 import 'package:nikutils/extensions/nke_context.dart';
+import 'package:nikutils/nikutils.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key}) : super(key: key);
@@ -32,7 +33,7 @@ class AppDrawer extends StatelessWidget {
                         'Aromaterapia',
                         style: TextStyle(color: AppColors.background),
                       ),
-                      onTap: () => context.pushNamed("/Categorias"),
+                      onTap: () => Get.toNamed("/Categorias"),
                     ),
                   ),
                 ],
@@ -51,7 +52,7 @@ class AppDrawer extends StatelessWidget {
                       ),
                       title: Text('Óleos Essenciais',
                           style: TextStyle(color: AppColors.background)),
-                      onTap: () => context.pushNamed("/Categorias"),
+                      onTap: () => Get.toNamed("/Categorias"),
                     ),
                   ),
                 ],
@@ -70,7 +71,7 @@ class AppDrawer extends StatelessWidget {
                       ),
                       title: Text('Óleos Vegetais',
                           style: TextStyle(color: AppColors.background)),
-                      onTap: () => context.pushNamed("/Categorias"),
+                      onTap: () => Get.toNamed("/Vegetais"),
                     ),
                   ),
                 ],
@@ -89,7 +90,7 @@ class AppDrawer extends StatelessWidget {
                       ),
                       title: Text('Guia Rapido',
                           style: TextStyle(color: AppColors.background)),
-                      onTap: () => context.pushNamed("/Categorias"),
+                      onTap: () => Get.toNamed("/Categorias"),
                     ),
                   ),
                 ],
@@ -110,7 +111,7 @@ class AppDrawer extends StatelessWidget {
                         'Diluição',
                         style: TextStyle(color: AppColors.background),
                       ),
-                      onTap: () => context.pushNamed("/Diluicao"),
+                      onTap: () => Get.toNamed("/Diluicao"),
                     ),
                   ),
                 ],

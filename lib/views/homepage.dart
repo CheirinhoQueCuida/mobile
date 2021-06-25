@@ -3,6 +3,7 @@ import 'package:mdi/mdi.dart';
 import 'package:mobile/helpers/colors.dart';
 import 'package:mobile/widgets/appdrawer.dart';
 import 'package:nikutils/extensions/nke_context.dart';
+import 'package:nikutils/nikutils.dart';
 import 'package:nikutils/widgets/nk_button.dart';
 
 class HomePage extends StatefulWidget {
@@ -85,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                         textStyle: TextStyle(
                             color: AppColors.background, fontSize: 12),
                         onClick: () {
-                          context.pushNamed("/Categorias");
+                          Get.toNamed("/Categorias");
                         },
                       ),
                       NkButton(
@@ -93,7 +94,9 @@ class _HomePageState extends State<HomePage> {
                         width: 120,
                         textStyle: TextStyle(
                             color: AppColors.background, fontSize: 12),
-                        onClick: () {},
+                        onClick: () {
+                          Get.toNamed("/Vegetais");
+                        },
                       ),
                     ],
                   ),
@@ -108,7 +111,7 @@ class _HomePageState extends State<HomePage> {
                   _buildItem("Diluição", "Adicionar desc...", Mdi.waterPercent,
                       btnText: "Calcular", ontap: () async {
                     await Future.delayed(Duration(milliseconds: 80));
-                    context.pushNamed("/Diluicao");
+                    Get.toNamed("/Diluicao");
                   })
                 ],
               ),

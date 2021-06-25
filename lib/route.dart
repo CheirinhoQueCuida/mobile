@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/views/dilutionpage.dart';
 import 'package:mobile/views/homepage.dart';
-import 'package:mobile/views/items/catspage.dart';
-import 'package:mobile/views/items/oleospage.dart';
+import 'package:mobile/views/oleo/catspage.dart';
+import 'package:mobile/views/oleo/oleospage.dart';
+import 'package:mobile/views/vegatablespage.dart';
 
 import 'models/categoria.dart';
 
@@ -17,6 +18,9 @@ class RouteGenerator {
             builder: (_) => OleosPage(
                   args as Categoria,
                 ));
+      case '/Vegetais':
+        return MaterialPageRoute(builder: (_) => VegetablesPage());
+
       case '/Categorias':
         return MaterialPageRoute(builder: (_) => CatsPage());
 

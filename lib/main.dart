@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/helpers/colors.dart';
 import 'package:mobile/repositories/categoriarepository.dart';
 import 'package:mobile/repositories/oleorepository.dart';
+import 'package:mobile/repositories/vegetalrepository.dart';
 import 'package:mobile/route.dart';
 import 'package:mobile/views/homepage.dart';
 import 'package:nikutils/utils/http/nk_http.dart';
@@ -12,6 +13,7 @@ void main() {
   NkHttpService.initializeHttpService(baseUrl: "webcheirinho.com.br/api");
   Get.put(OleoRepository());
   Get.put(CategoriaRepository());
+  Get.put(VegetalRepository());
   // Get.put(ImagemService());
 }
 

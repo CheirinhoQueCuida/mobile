@@ -1,16 +1,17 @@
-import 'package:mobile/models/oleo.dart';
+import 'package:mobile/models/vegetal.dart';
 import 'package:nikutils/nikutils.dart';
 import 'package:nikutils/utils/http/nk_http.dart';
 
-class OleoRepository extends GetxController {
+class VegetalRepository extends GetxController {
   // Api
   final NkHttpService _httpService = Get.find();
-  Future<NkResponse<List<Oleo>>?> _get({int? catId}) async {
-    var requestData = RequestData<List<Oleo>>(fromJson: oleoListFromJson);
-    requestData.route = "oleo";
+
+  Future<NkResponse<List<Vegetal>>?> _get({int? id}) async {
+    var requestData = RequestData<List<Vegetal>>(fromJson: vegetalListFromJson);
+    requestData.route = "oleovegetal";
     requestData.queryParams = {};
-    if (catId != null) {
-      requestData.queryParams!.addAll({"catid": catId.toString()});
+    if (id != null) {
+      requestData.queryParams = {"id": id.toString()};
     }
     requestData.type = RequestType.get;
     var res = await _httpService.requestNkBase(requestData);
@@ -21,20 +22,20 @@ class OleoRepository extends GetxController {
 
   NkResponse? apiResponse;
 
-  List<Oleo> oleos = [];
+  List<Vegetal> vegetais = [];
 
-  Oleo? oleo;
+  Vegetal? vegetal;
 
   bool success = true;
 
   bool isBusy = false;
 
-  Future loadListData(int catId) async {
+  Future loadListData() async {
     isBusy = true;
-    var res = await _get(catId: catId);
+    var res = await _get();
     success = res!.success!;
     if (success) {
-      oleos = res.data!;
+      vegetais = res.data!;
     }
     isBusy = false;
     update();

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:mobile/helpers/colors.dart';
@@ -7,8 +8,6 @@ import 'package:mobile/models/categoria.dart';
 import 'package:mobile/models/oleo.dart';
 import 'package:mobile/repositories/oleorepository.dart';
 import 'package:nikutils/nikutils.dart';
-import 'package:nikutils/extensions/nke_state.dart';
-import 'package:nikutils/utils/http/nk_response.dart';
 import 'package:nikutils/widgets/nk_button.dart';
 import 'package:mobile/widgets/itemdetailmodal.dart';
 
@@ -46,10 +45,32 @@ class _OleosPageState extends State<OleosPage> {
           onRefresh: _loadData,
           child: GetBuilder<OleoRepository>(
             builder: (repo) {
-              return ListView.builder(
-                  itemCount: repo.oleos.length,
-                  itemBuilder: (context, i) =>
-                      _buildItem(repo.oleos[i], i, repo.oleos.length));
+              if (repo.isBusy)
+                return Container(
+                    alignment: Alignment.topCenter,
+                    child: RefreshProgressIndicator());
+              if (!repo.success) {
+                return Container(
+                  width: context.width,
+                  alignment: Alignment.topCenter,
+                  child: Text(
+                    "Ocorrou um erro com o servidor!",
+                    style: TextStyle(color: Colors.red),
+                  ),
+                );
+              }
+              return repo.oleos.length > 0
+                  ? ListView.builder(
+                      itemCount: repo.oleos.length,
+                      itemBuilder: (context, i) =>
+                          _buildItem(repo.oleos[i], i, repo.oleos.length))
+                  : Container(
+                      width: context.width,
+                      alignment: Alignment.topCenter,
+                      child: Text(
+                        "Nenhum óleo encontrado!",
+                      ),
+                    );
             },
           )),
     );
@@ -71,17 +92,26 @@ class _OleosPageState extends State<OleosPage> {
             ),
           ),
           Container(
-              padding: EdgeInsets.only(bottom: 15),
-              child: Image.network(
-                oleo.imagem != null ? oleo.imagem!.url! : "",
-                height: 120,
-                width: 240,
-                fit: BoxFit.fitHeight,
-              )),
+            padding: EdgeInsets.only(bottom: 15),
+            child: CachedNetworkImage(
+              fit: BoxFit.fitHeight,
+              imageUrl: oleo.imagem != null ? oleo.imagem!.url! : "",
+              height: 120,
+              width: 240,
+              errorWidget: (context, url, error) => Icon(Icons.error),
+            ),
+            // child: Image.network(
+            //   oleo.imagem != null ? oleo.imagem!.url! : "",
+            //   height: 120,
+            //   width: 240,
+            //   fit: BoxFit.fitHeight,
+            // )
+          ),
           Container(
             alignment: Alignment.centerLeft,
             child: Text(
               oleo.descricao!,
+              textAlign: TextAlign.center,
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
             ),
           ),

@@ -25,12 +25,16 @@ class CategoriaRepository extends GetxController {
 
   bool success = true;
 
+  bool isBusy = false;
+
   Future loadData() async {
+    isBusy = true;
     var res = await _get(2);
     success = res!.success!;
     if (success) {
       categorias = res.data!;
     }
+    isBusy = false;
     update();
   }
 }
